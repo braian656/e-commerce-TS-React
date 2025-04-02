@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    './src/**/*.{html,js,jsx,ts,tsx}', // Ajusta estas rutas si es necesario
+    './src/**/*.{js,jsx,ts,tsx}', // Ajusta estas rutas si es necesario
   ],
   theme: {
     extend: {
