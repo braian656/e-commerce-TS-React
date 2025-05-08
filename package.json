@@ -1,39 +1,52 @@
 {
-  "name": "e-commerce",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "e-commerce-ts",
+  "version": "1.0.0",
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite --open --port 3000",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/braian656/e-commerce-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "@reduxjs/toolkit": "^2.3.0",
-    "@tailwindcss/vite": "^4.1.0",
-    "embla-carousel-react": "^8.5.2",
-    "firebase": "^11.5.0",
-    "framer-motion": "^12.6.2",
-    "lucide-react": "^0.452.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-redux": "^9.1.2",
-    "react-router-dom": "^6.28.0",
-    "swiper": "^11.1.14",
-    "tailwindcss": "^4.1.0"
+    "@reduxjs/toolkit": "^2.8.0",
+    "@tailwindcss/vite": "^4.1.5",
+    "embla-carousel-react": "^8.6.0",
+    "firebase": "^11.7.0",
+    "framer-motion": "^12.10.1",
+    "lucide-react": "^0.508.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.5.3",
+    "swiper": "^11.2.6",
+    "tailwindcss": "^4.1.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "eslint": "^9.9.0",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.9",
-    "globals": "^15.9.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.2.4"
-  }
+    "@eslint/js": "^9.26.0",
+    "@types/react": "^19.1.3",
+    "@types/react-dom": "^19.1.3",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.26.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  },
+  "bugs": {
+    "url": "https://github.com/braian656/e-commerce-ts/issues"
+  },
+  "homepage": "https://github.com/braian656/e-commerce-ts#readme"
 }

@@ -1,23 +1,20 @@
 
 // Provider
 import { useMyContext } from "../context/useMyContext"
-
 // Components
 import TableItems from "./TableItems"
 
 
 function Table(){
 
-
+    console.log('TABLA')
    
     const {purchasedProducts} = useMyContext()
 
 
-    const isEmpty = purchasedProducts.length !== 0 ? 'flex' :  'hidden'
     const classTitle = purchasedProducts.length !== 0 ? 'hidden' : 'flex'
 
 
-    console.log(purchasedProducts)
     return(
         <>
         

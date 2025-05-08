@@ -1,39 +1,57 @@
 import {Heart} from 'lucide-react'
 
+import ButtonPag from '../buttons-component/ButtonPag';
+
 interface ProductCardType{
   id: string;
   image: string;
   product: string;
   description: string;
   price: number;
+  onClick: (e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
-function ProductCard({id,image,product, description,price}: ProductCardType){
+function ProductCard({id,image,product, description,price, onClick}: ProductCardType){
+
+
+  
 
     return(
-        <article id={id} className="card-wishlist relative cursor-pointer w-full overflow-hidden shadow-lg  m-3 sm:w-80 hover:drop-shadow-lg">
-          <span className="icon-favorite absolute top-[10px] right-[10px]">
-            <Heart 
-            size={32} 
-            color="#f66a6a" 
-            className='hover:text-[#b90e0e] hover:scale-75'/>
-          </span>
+        <article id={id} className="relative bg-white p-2 w-sm rounded-md w-full overflow-hidden shadow-lg  m-3 sm:w-[400px] hover:drop-shadow-lg">
+  
           <div className='flex justify-around items-center flex-col'>
-            <div className='pic w-full  overflow-hidden'>
-              <img className="w-full h-full"
+            <div className='pic w-full h-48 overflow-hidden'>
+              <img className="object-cover h-full m-auto"
               src={image} 
               alt={product} />
             </div>
-            <div className="px-6 flex items-center justify-between flex-col">
-              <h2 className="py-2 font-bold uppercase	text-lg text-center text-button tracking-widest w-full">
+            <div className="flex w-full items-start justify-between flex-col">
+              <h2 className="font-semibold text-button2 text-lg">
                 {product}
               </h2>
+              <div className="content-price flex justify-between w-full">
+                <h2 className="text-2xl pt-2 font-bold text-button2 leading-5">
+                  ${price}
+                </h2> 
+                <span className='font-semibold text-sm border-1 border-solid border-green-400 px-2 py-2 bg-green-100 text-green-400 rounded-xl'>
+                  in Stock
+                </span>
+              </div>
+               
             </div>
-            <div className="p-2 flex justify-center items-center">
-            <span className="text-2xl py-2 font-semibold text-button2 leading-5">
-              {price}$
-            </span>      
-            </div>
+
+
+              <ButtonPag 
+              text='Remover' 
+              onClick={onClick}
+              clr='bg-white'
+              clrText='red-500'
+              border='border-1 border-solid border-gray-400'
+              width='w-full'
+              hoverButton='hover:bg-red-100 hover:border-red-200'
+              cursorPointer='cursor-pointer'>
+              </ButtonPag>
+                
           </div>
         </article>
     )

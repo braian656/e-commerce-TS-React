@@ -18,21 +18,25 @@ export interface InfoApi  {
 }
 
 export interface ActualUser{
-    name: string | null,
-    surname: string | null,
-    email: string | null,
-    password: string | null,
-    password_repeat: string | null,
+    name: string | null;
+    surname: string | null;
+    email: string | null;
+    password: string | null;
+    password_repeat: string | null;
 } 
-
+export interface UserFromFirebase {
+    name: string | null;
+    surname: string | null;
+    email: string | null;
+    password: string | null;
+    password_repeat: string | null;
+}
 export type ValidationErrors = {
     // firma de indice, paso claves dinamicamente
     [key:string] : string;
 };
 
-export interface StateActualUser{
-    userState : ActualProduct | null,
-}
+
 
 export interface ActualProduct {
     index : number;
@@ -43,6 +47,10 @@ export interface ActualProduct {
     productCategory : string;
     rating: number;
 }
+// export interface StateActualProduct{
+//     userState : ActualProduct | null,
+// }
+
 
 export type ProductsWhishList = {
     id:number;
@@ -64,11 +72,10 @@ export interface PurchasedProduct {
 // Todos los datos que se van a usar en los componentes
 
 // en mi types describo los tipos de datos que voy a usar, y que funciones
-// 
 
 
 export interface CurrentInfo {
-
+   
     productData: InfoApi[]; 
     setProductData: React.Dispatch<React.SetStateAction<InfoApi[]>>;
 
@@ -116,6 +123,14 @@ export interface CurrentInfo {
 
     activeItemId: number | null;
     setActiveItemId: React.Dispatch<React.SetStateAction<number | null>>;
+
+    actualUser: ActualUser | null;
+    setActualUser: React.Dispatch<React.SetStateAction<ActualUser | null>>;
+
+    userFromDB : UserFromFirebase | null;
+    setUserFromDB : React.Dispatch<React.SetStateAction<UserFromFirebase | null>>
+
+   
 }
 
 

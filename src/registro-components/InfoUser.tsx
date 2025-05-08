@@ -1,10 +1,11 @@
 // HOOKS
-import { useState } from "react"
+import {  useState } from "react"
 //REDUX
-import { useSelector, useDispatch } from "react-redux";
-import { useAppDispatch,useAppSelector } from "../store/hook";
+import { useAppDispatch } from "../store/hook";
 
 import { addUser } from "../store/features/register"
+
+
 
 // PROVIDER 
 import { useMyContext } from "../context/useMyContext";
@@ -12,18 +13,20 @@ import { useMyContext } from "../context/useMyContext";
 
 // COMPONENTS
 import InputRegistro from "./InputRegistro"
-import PicPerfil from "./PicPerfil"
+import PicPerfil from "./component-dashboard/PicPerfil"
 // import ButtonPag from "../buttons-component/ButtonPag"
 import ErrorComponent from "../errors-component/ErrorComponent"
 
 //  TYPE
 import { ActualUser } from "../context/types/typesApi";
+import { UserFromFirebase } from "../context/types/typesApi";
 
 // INTERFACE
 interface InfoUserProp{
-    actualUser : ActualUser | null;
-    setActualUser: React.Dispatch<React.SetStateAction<ActualUser | null>>
+    userFromDB: UserFromFirebase | null;
+    setUserFromDB: React.Dispatch<React.SetStateAction<UserFromFirebase | null>>
 }
+
 
 interface ActualValueTypes{
 
@@ -34,24 +37,30 @@ interface ActualValueTypes{
     password_repeat: string | null,
 
 }
-function InfoUser({actualUser, setActualUser}: InfoUserProp){
-    // Componente que esta dentro del dashboard
-    const dispatch = useAppDispatch()
 
-  
+//actualUser, y setActualUser, capaz sean temporal
+function InfoUser({setUserFromDB,userFromDB}: InfoUserProp){
+    // Componente que esta dentro del dashboard
+    console.log('COMOPOENE INFO USER')
+    const dispatch = useAppDispatch()
 
     const {picUser} = useMyContext()
 
-    const [actualValue , setActualValue] = useState<ActualValueTypes>(
+   
+
+    const [actualValue, setActualValue] = useState<ActualValueTypes>(
         {
-            name: actualUser!.name,
-            surname: actualUser!.surname,
-            email: actualUser!.email,
-            password: actualUser!.password,
-            password_repeat: actualUser!.password_repeat,
+    
+                name: userFromDB!.name,
+                surname: userFromDB!.surname,
+                email: userFromDB!.email,
+                password: userFromDB!.password,
+                password_repeat: userFromDB!.password_repeat,
+    
         }
     )
-    const [newValues, setNewValues] = useState() /* Esto no se*/
+
+
 
     const [updateUserData, setUpdateUserData] = useState(false)
     const [modalVisible , setModalVisible] = useState(false)
@@ -110,13 +119,8 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
 
         if(validate()){
             dispatch(addUser(actualValue))
-            setActualUser(actualValue)
+            setUserFromDB(actualValue)
         }
-        // else{
-
-        //     return
-
-        // }
 
 
     }
@@ -133,9 +137,12 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
         };
         setActualValue(newValues);         
     }
+
     const handleClassModal = ()=>{
         setModalVisible(false)
     }
+
+
     return(
     <>
 
@@ -146,16 +153,14 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
             visible={modalVisible} 
             messageModal="DESEA REALIZAR CAMBIOS??"
             txtButton="ACEPTAR"
-            actualUser={null}
+            userFromDB={null}
             colorBtn="bg-red-500"
             image="./images/danger.svg"
             title="Realizar cambios"
             handleModal={handleClassModal}>
             </ErrorComponent>
         
-            <PicPerfil 
-            picUser={picUser}>
-            </PicPerfil>
+            <PicPerfil picUser={picUser}></PicPerfil>
 
 
            <div className="inputs-user">
@@ -166,7 +171,8 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
                 type="text"
                 value={actualValue.name}
                 onChange={handleChange}
-                text="Nombre">
+                text="Nombre"
+                customWidth="w-4/5">
                 </InputRegistro>
 
 
@@ -176,7 +182,8 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
                 type="text"
                 value={actualValue.surname}
                 onChange={handleChange}
-                text="Apellido">
+                text="Apellido"
+                customWidth="w-4/5">
                 </InputRegistro>
 
            </div>
@@ -188,7 +195,8 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
                 type="text"
                 value={actualValue.password}
                 onChange={handleChange}
-                text="Contraseña">
+                text="Contraseña"
+                customWidth="w-4/5">
                 </InputRegistro>
 
                 <InputRegistro 
@@ -197,7 +205,8 @@ function InfoUser({actualUser, setActualUser}: InfoUserProp){
                 type="text"
                 value={actualValue.password_repeat}
                 onChange={handleChange}
-                text="Repetir Contraseña">
+                text="Repetir Contraseña"
+                customWidth="w-4/5">
                 </InputRegistro>
             </div>
             <div className="w-full flex justify-center items-center">

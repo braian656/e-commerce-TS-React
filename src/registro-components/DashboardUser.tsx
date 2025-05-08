@@ -1,128 +1,124 @@
-// icons
-import { CircleUserRound, ShoppingBasket } from "lucide-react"
-
 // hooks
-import { useState } from "react"
-
+import { useState , useEffect} from "react"
 
 
 // Provider
 import { useMyContext } from "../context/useMyContext"
 
 // componenets
-import ButtonPag from "../buttons-component/ButtonPag"
+import LoadingDots from "../loading-dots-component/LoadingDots"
+import Aside from './component-dashboard/Aside'
 import Table from "./Table"
 import InfoUser from "./InfoUser"
-import { ActualUser } from "../context/types/typesApi"
+
 
 // interface
 
+// firebase
+import { auth } from "../firebase/firebase"
+import { dataBase } from "../firebase/firebase"
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+
+
+// type
+import { UserFromFirebase } from "../context/types/typesApi"
+
 interface DashboardUserProps{
+
+  activeComponents: boolean;
+  setActiveComponents: React.Dispatch<React.SetStateAction<boolean>>
   setUserLog: React.Dispatch<React.SetStateAction<boolean>>;
-  actualUser: ActualUser | null;
-  setActualUser : React.Dispatch<React.SetStateAction<ActualUser | null>>
+
 }
 
-function DashboardUser({setUserLog, actualUser,setActualUser}: DashboardUserProps){
-
-
- 
-    const {picUser} = useMyContext()
+function DashboardUser({setUserLog, activeComponents, setActiveComponents}: DashboardUserProps){
+    console.log('DASHBOARD')
+    const {picUser, userFromDB, setUserFromDB } = useMyContext()
     const [sectionPurchaseHistory, setSectionPurchaseHistory] = useState(false)
 
- 
-    // const [seeSectionUser, setSeeSeccionUser] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    // const [userActive, setUserActive] = useState<UserFromFirebase | null>(null)  
+   
+    const getActualUser = async () => {
+      setLoading(true)
 
-    function signOut(){
-        setActualUser(
-            {
-            name: "",
-            surname: '',
-            email: '',
-            password: '',
-            password_repeat: '',
-            }
-        )
+      onAuthStateChanged(auth, async(user)=>{
+       
+
+       if(user){
+        
+        try {
+          const docRef = doc(dataBase, "Usuarios", user.uid);
+          const docSnap = await getDoc(docRef);
+        
+          if (docSnap.exists()) {
+
+            const datos = docSnap.data() as UserFromFirebase;
+
+            console.log(datos)
+            // estas pasando un obj entero pelotudoooo
+            setUserFromDB(datos);
+            console.log('UserfromDB en dashboard', userFromDB)
+          } else {
+            setError("El usuario no existe.");
+          }
+        } catch (err) {
+            console.error("Error al obtener el usuario:", err);
+            setError("Ocurrió un error al cargar los datos.");
+        } finally {
+            setLoading(false);
+        }
+       }
 
 
-        setUserLog(false)
+      })
 
+     
+    };
+  
 
-    }
+    
+    useEffect(()=>{
 
-    function getPurchaseHistory(){
-        console.log('COMPRA REALIZADAS')
-        setSectionPurchaseHistory(true)
-    }
+      setActiveComponents(false)
+      getActualUser()
 
-    function getSectionUser(){
-      console.log('SECCION USUARIO')
-      setSectionPurchaseHistory(false)
-    }
+    }, [])
 
-    // useEffect(()=>{
-    //     setSliderActive(false)
-    // }, [])
-
-    console.log(actualUser)
-
+    if (loading) return <LoadingDots></LoadingDots>;
+  
     return(
     
       <div className="section-dashboard">
-          <div className="content-user bg-white rounded-lg">
+          <div className="content-user bg-white  rounded-lg">
           <div className="image">
+              
               <div className="image-user">
                 <img src={picUser} alt="" loading="lazy"/>
               </div>
               <h1 className="name-user">
-                {actualUser?.name + ' ' + actualUser?.surname}
+                {userFromDB?.name}
               </h1>
               <div className="cerrar-session">
-
+                
               </div>
           </div>
             <div className="more-inf">
               <h2 className="mail">
-                {actualUser?.email}
+                {userFromDB?.email}
               </h2>
-              {/* <h2 className="num">
-                029491094
-              </h2> */}
             </div>
           </div>
           <div className="content-info-user mt-3">
-            <aside className="content-op">
-                
-                <button 
-                className={
-                  `text-center ${!sectionPurchaseHistory ? 'active' : ''}`
-                } 
-                onClick={getSectionUser}>
-                  <CircleUserRound 
-                  className="icon-scale"
-                  size={20} 
-                  color="rgb(31 41 55)" 
-                  strokeWidth={1.5} />
-                  <h2 className="mr-2">
-                    Usuario
-                  </h2>
-                </button>
-
-                <button 
-                className={
-                  `text-center ${sectionPurchaseHistory ? 'active' : ''}`
-                } 
-                onClick={getPurchaseHistory}>
-                  <ShoppingBasket 
-                  className="icon-scale" 
-                  size={20} 
-                  color="rgb(31 41 55)" 
-                  strokeWidth={1.5} />
-                  <h2 className="mr-2">
-                    Compras
-                  </h2>
-                </button>                
-            </aside>
+            <Aside 
+            sectionPurchaseHistory={sectionPurchaseHistory}
+            setSectionPurchaseHistory={setSectionPurchaseHistory}   
+            setUserLog={setUserLog}  
+            userFromDB={userFromDB}       >
+            </Aside>
+           
             <div className="show-content display-content-info">
               {
                 sectionPurchaseHistory 
@@ -130,8 +126,8 @@ function DashboardUser({setUserLog, actualUser,setActualUser}: DashboardUserProp
                 <Table></Table>
                 :
                 <InfoUser 
-                actualUser={actualUser} 
-                setActualUser={setActualUser}>
+                userFromDB={userFromDB}
+                setUserFromDB={setUserFromDB}>
                 </InfoUser>
               }
 

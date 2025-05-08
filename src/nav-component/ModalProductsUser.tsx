@@ -1,5 +1,4 @@
-import { useState, useContext } from "react"
-import { contextProducts } from "../context/context"
+
 
 interface modalProductProps {
     id : number;
@@ -11,13 +10,7 @@ interface modalProductProps {
 }
 function ModalProductsUser({id,image,product,price, onClick}: modalProductProps){
 
-    // Debemos sumar cada producto y mostra el total
-    // console.log(price)
-    // const total = price.reduce((acc, num)=> acc + num)
-    // console.log(total)
-
-    // const currentPrice = [...price]
-    // const total = currentPrice.reduce((acc, curr)=> acc + curr);
+    console.log('MODAL NAV')
 
 
 
@@ -27,7 +20,7 @@ function ModalProductsUser({id,image,product,price, onClick}: modalProductProps)
             <>
                 <li 
                 id={String(id)} 
-                className="p-4 m-2  flex items-center justify-between gap-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                className="p-4 m-2 flex items-center justify-between gap-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
                     <div 
                     className="image w-20 overflow-hidden rounded-md flex-shrink-0">
                         <img 

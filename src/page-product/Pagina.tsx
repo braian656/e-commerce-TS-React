@@ -1,32 +1,27 @@
 // hooks
-import { act,
-        useContext,
+import {
         useEffect,
-        useReducer,
         useState,
         useCallback } from "react"
 
 
-import { useNavigate } from "react-router-dom"
 
 
 // components
-import SignIn from "../registro-components/SignIn"
 import ErrorComponent from "../errors-component/ErrorComponent"
 import SubComponentPag from './sub-component-pag/SubComponentPag'
 import ButtonPag from "../buttons-component/ButtonPag"
+import MoreProduct from "./more-prod/MoreProduct"
 
-// type
-import { ActualUser } from "../context/types/typesApi"
 
 // Provider
 import { useMyContext } from "../context/useMyContext"
 
+import {Star} from 'lucide-react'
+
 // Verificar uso del los useHooks - check
 interface SliderProp{
     setActiveComponents: React.Dispatch<React.SetStateAction<boolean>>;
-    actualUser: ActualUser | null;
-
     onClick: (
         _id: number, 
         _image: string, 
@@ -36,26 +31,18 @@ interface SliderProp{
         _cantidad: number, 
         _color: string
       ) => void;
-
-
-
 }
 
 
-function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
+function Pagina({onClick,setActiveComponents} : SliderProp){
 
     console.log('COMPONENTE PAGINA')
 
-    const navigate = useNavigate()
     const { actualProduct,
-            setActualProduct,
             productData, 
-            setOpenPagProduct,
-            openPagProduct,
             setPurchasedProducts,
-            purchasedProducts
+            userFromDB,    
         } =  useMyContext()
-
 
     
     const [noUser, setNoUser] = useState(true) /*Verifico si el user tiene cuenta o no*/
@@ -72,8 +59,7 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
 
     const handleData = useCallback(()=>{
 
-
-        if (actualUser === null) {
+        if (userFromDB === null) {
             setNoUser(false);
             setMessage('Inicia sesion para realizar la compra.');
             setTxtButton('IR A MI CUENTA');
@@ -136,11 +122,14 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
 
 
     const [num, setNum] = useState<number>(0);
+
     const showStars = Array.from({ length: num }, (_, i) => (
 
 
-    <span key={i} className="text-button m-0.5">
-        <i className="fa-regular fa-star"></i>
+    <span className="m-0.5">
+
+        <Star key={i} className="fill-yellow-400 text-yellow-400"/>
+
     </span>
 
     
@@ -171,7 +160,9 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
 
     }
 
-    const addToWishList = ()=>{
+    // por aca akgi me pide no se
+
+    const addToWishList = ()=>{    
         if (quantity !== 0 && color !== ''){
 
             onClick(
@@ -216,7 +207,7 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
             handleModal={handleModal}
             messageModal={message}
             txtButton={txtButton}
-            actualUser = {actualUser}
+            userFromDB = {userFromDB}
             colorBtn='bg-green-500'
             image={imgError}
             title={titleModal}
@@ -235,7 +226,7 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
             handleModal={handleModalWishList}
             messageModal="Producto Agregado a la lista de deseos"
             txtButton={txtButton}
-            actualUser = {actualUser}
+            userFromDB = {userFromDB}
             colorBtn='bg-green-500'
             image="/images/hearts.svg"
             title="Producto agregado"
@@ -245,40 +236,74 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
 
         <div 
         id={String(actualProduct.index)} 
-        className="p-2 product-pag rounded-xl bg-button2 my-[2vh] sm:flex sm:justify-between  sm:items-center">
+        className="p-2 product-pag rounded-xl my-[2vh] sm:flex sm:justify-between  sm:items-center">
+            {/*    sm:min-w-[220px] */}
             <div 
-            className="product_image bg-white h-[70vh] sm:w-[44%] rounded-xl shadow-md  sm:min-w-[220px] flex justify-center items-center">
-                <img 
-                src={actualProduct.image}
-                alt={actualProduct.product}
-                className="w-full h-full sm:h-auto object-contain object-center sm:h-full sm:w-auto" 
-                loading="lazy"/>
+            className="product_image flex flex-col justify-center items-center shadow-md sm:w-[44%] sm:min-w-[220px]">
+                <div className="img-1">
+                    {/* sm:h-full sm:h-auto sm:w-auto */}
+
+                    <img 
+                    src={actualProduct.image}
+                    alt={actualProduct.product}
+                    className="w-full h-full sm:h-[510px] object-contain object-center " 
+                    loading="lazy"/>
+
+                </div>
+
+                <div className="img-sec flex justify-start">
+                    
+                    {/* dinamico */}
+                    <div className="mini-img p-1 m-1 border-2 border-gray-500 rounded-md">
+                        <img 
+                        src={actualProduct.image}
+                        alt={actualProduct.product}
+                        className="w-[80px] h-[80px] object-contain object-center pointer" 
+                        loading="lazy"/>
+
+                    </div>
+
+                    <div className="mini-img p-1 m-1 pointer border-2 border-gray-500 rounded-md">
+                        <img 
+                        src={actualProduct.image}
+                        alt={actualProduct.product}
+                        className="w-[80px] h-[80px] object-contain object-center " 
+                        loading="lazy"/>
+
+                    </div>
+
+                    
+                   
+                    
+                </div>
+                
             </div>
 
             <div className="producto_detail p-5 sm:w-[56%] flex justify-center items-center">
                 <div className="detail w-full">
+
                     <span className="category text-button font-semibold text-xs">
                         {actualProduct.productCategory}
                     </span>
-                    <h1 className="name text-white text-xl font-semibold sm:my-3">
+
+                    <h1 className="name text-button2 text-xl font-semibold sm:my-3 sm:text-3xl">
                         {actualProduct.product}
                     </h1>
 
-                    <div className="price flex justify-between items-center">
-                        <h2 className="text-white text-2xl">
+                    <div className="price flex justify-start items-start sm:my-4 flex-col">
+
+                        <div className="review_star flex text-2xl">
+                            {showStars}     
+                        </div>
+
+                        <h2 className="text-button2 font-bold text-2xl">
                             ${actualProduct.total}
                         </h2>
-
-                        <div className="review_star text-button text-2xl">
-                            {showStars}
-                        </div>
                     </div>
 
                     <div className="descrption justify-center items-center flex-col sm:my-5">
-                        <h2 className="descr text-xs text-white font-semibold my-1.5">
-                            DESCRIPCION
-                        </h2>
-                        <p className="text-text sm:my-2">
+                        
+                        <p className="text-gray-600 sm:my-2">
                             {actualProduct.descr}
                         </p>
                     </div>
@@ -299,7 +324,7 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
                         clrText="white"
                         width="w-full"
                         border="border border-solid border-white"
-                        hoverButton="hover:text-zinc-900 hover:bg-white">
+                        hoverButton="hover:text-zinc-900 hover:bg-gray-500">
                         
                     </ButtonPag>
                     <ButtonPag 
@@ -309,12 +334,18 @@ function Pagina({actualUser,onClick,setActiveComponents} : SliderProp){
                         clrText="white"
                         width="w-full"
                         border="none"
-                        hoverButton="hover:border-button2 hover:text-button2">                  
+                        hoverButton="hover:border-button2 hover:bg-red-600">                  
                     </ButtonPag>
                 </div>
             </div>
 
         </div>
+
+
+
+
+        <MoreProduct actualProduct={actualProduct}></MoreProduct>
+       
     </section>
     )
 }

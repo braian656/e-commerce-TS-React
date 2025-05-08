@@ -1,4 +1,29 @@
 
+/* slider images */
+.content-image {
+  aspect-ratio: 16 / 9
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 60px;
+  aspect-ratio: 2;
+  --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+  background: 
+    var(--_g) 0%   50%,
+    var(--_g) 50%  50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100%/3) 50%;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+    20%{background-position:0%   0%, 50%  50%,100%  50%}
+    40%{background-position:0% 100%, 50%   0%,100%  50%}
+    60%{background-position:0%  50%, 50% 100%,100%   0%}
+    80%{background-position:0%  50%, 50%  50%,100% 100%}
+}
+/* ------------------------------------------------------ */
 .color-1{
   background: rgb(186,40,51);
 
@@ -9,26 +34,45 @@
   background: rgba(255, 255, 255, 0.1); 
 }
 /* menu hamburguesa */
-.menu-sm{
-  position: fixed;
-  top: 60px;
-  left: 0;
-  height: 500px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  transition: transform 0.5s ease-out;
-  /* z-index: -1; */
-}
 
-
-
-.menu-sm.active{
+  .menu-mobile{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: transform 0.5s ease-out;
+    /* z-index: -1; */
+  }
+.menu-mobile.active{
   z-index: 100;
   transform: translateY(0);
 }
+
+@media (min-width: 620px){
+ 
+  .menu-desktop{
+    position: relative; /* sm:relative */
+    top: 0; /* sm:top-0 */
+    width: auto; /* sm:w-auto */
+    height: auto; /* sm:h-auto */
+    display: flex; /* sm:flex */
+    flex-direction: row; /* sm:flex-row */
+    align-items: center; /* sm:items-center */
+    justify-content: center; /* sm:justify-center */
+     transform: translateX(0px); /* sm:translate-y-0 */
+    z-index: 40; /* z-40 */
+  }
+  .menu-desktop > li{
+    margin-bottom: 0;
+  }
+  
+}
+
 
 .button-disabled{
   background-color: rgb(221 187 187);
@@ -123,7 +167,7 @@
 }
 
 .product-pag{
-  max-width: 62.5rem;
+  /* max-width: 62.5rem; */
   min-width: 200px;
 }
 
@@ -177,6 +221,9 @@
 .content-info-user{
   display: flex;
 }
+.content-op{
+  position: relative;
+}
 .content-op button{
   margin: 5px 0;
   background-color: #f2f2f2;
@@ -199,11 +246,16 @@
   font-weight: 400;
   color: rgb(31 41 55);
 }
-/* .content-op h2{
-  margin: 0 2px;
-  font-size:14px;
-} */
-
+.content-op .log-out{
+  font-weight: 600;
+  position: absolute;
+  bottom: 0;
+  background-color: oklch(88.5% 0.062 18.334);
+}
+.content-op .log-out:hover{
+  
+  background-color: #f87171;
+}
 @media (width < 520px) {
   .content-op button{
     width: 50px;
@@ -308,26 +360,28 @@
 }
 
 
+
 .section-info{
   /* border: 2px solid #333; */
   background-color: #ddd;
   padding: 1.25rem;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 /* COmponente Pic Perfil */
 .pic-content{
   display:flex;
-  justify-content: start;
-  align-items: end;
-  margin-bottom: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .actual-pic{
   width: 80px;
   height: 80px;
   overflow: hidden;
-  margin-left: 1.5rem;
+  /* margin-left: 1.5rem; */
   border-radius: 4px;
 }
 .actual-pic img{
@@ -337,36 +391,40 @@
 }
 
 .profile-button {
-  background-color: #4CAF50; /* Verde */
+  background-color: #f2f2f2; /* Verde */
   border: none;
-  color: white;
-  padding: 5px 20px;
+  color: #c8222f;
+  padding: 5px 8px;
   text-align: center;
   text-decoration: none;
   /* display: inline-block; */
   font-size: clamp(0.5rem, 5vw, 1rem);
-  margin: 0.625rem;
+  /* margin: 0.625rem; */
+  margin-top : 0.625rem;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 4px;
   transition: background-color 0.3s;
+  border: 2px solid #c8222f;
 }
 
 .profile-button:hover {
-  background-color: #45a049;
+  background-color: #c43333;
+  color: #f2f2f2;
+  border: 2px solid #c43333;
 }
 .button-infoUser{
   margin-top: 3rem;
   padding: 0.625rem 2rem;
   font-size: 1rem;
   font-weight: 500;
-  border-radius: 12px;
-  background-color: #45a049;
+  border-radius: 4px;
+  background-color: #2b2c30;
   color: #f2f2f2;
   transition: background-color 0.3s;
 
 }
 .button-infoUser:hover{
-  background-color: #359b3a;
+  background-color: #232323;
 
 }
 /* nav nameuser component  */
@@ -396,10 +454,10 @@
   transform: translate(-50%, -50%);
   padding: 1rem;
   border-radius: 4px;
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
   z-index: 60;
 }
 
@@ -412,7 +470,7 @@
 .modal-info .close-modal{
   position: absolute;
   right: 10px;
-  top: -50px;
+  top: -100px;
   cursor: pointer;
 }
 .modal-info .content-img{
@@ -548,9 +606,6 @@
 
 
 
-#content-slider .card-slider{
-  background-color: #6b6c70;
-}
 .item-slider{
   height: 26.25rem;
   width: 100%;
@@ -583,7 +638,7 @@
 }
 .item-slider .box-txt .text-slider{
   font-weight: 500;
-  color: #f8f8f8;
+  color: #c41818;
   margin: 0.75rem 0;
 
   display: none;
@@ -701,21 +756,21 @@
 }
 
 .form-signIn{
-  border: 1px solid #333;
-  border-radius: 12px;
   padding: 2rem;
 }
+
+
 @media  (width < 420px){
   .form-signIn{
     padding: 0.625rem;
   }
 }
-.sign-in{
+/* .sign-in{
   background-image: url('../public/images/bg-signin.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 .bg-gradient-content{
   background: rgb(46,33,34);
   background: linear-gradient(90deg, rgba(46,33,34,1) 28%, rgba(35,35,35,1) 55%, rgba(51,51,51,1) 82%);
@@ -726,9 +781,7 @@
   cursor: pointer;
   margin: 0;
 }
-.text-signIn:hover{
-  color: #c8222f;
-}
+
 
 /* image-register */
 @media (width > 520px) {
@@ -740,27 +793,22 @@
 }
 
 
-#wishList .h1-wishList{
+#wishList .txt-wishList{
   font-size: 1.5rem;
-  color: red;
+  color: #232323;
   font-weight: 500;
 }
 #wishList .title-wishList{
   width: 100%;
-}
-#wishList .underline{
-  /* width: 100%; */
-  background-color: #333;
-  height: 2px;
 }
 
 .card-wishlist{
   border-radius: 12px;
   background-color: #ccc;
 }
-.card-wishlist .pic{
+/* .card-wishlist .pic{
   height: 20rem;
-}
+} */
 .card-wishlist .pic img{
   background-size: cover;
 
@@ -768,4 +816,6 @@
 .header .pic{
   margin: 0 auto;
 }
+
+
 

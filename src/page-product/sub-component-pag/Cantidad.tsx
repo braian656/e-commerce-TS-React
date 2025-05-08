@@ -17,10 +17,10 @@ function Cantidad({count,onClickIncrement, onClickDecrement}: AmountProp){
                 +
             </button>
             
-            <span className="num text-white px-2">
+            <span className="num cursor-pointer text-button2 px-2">
                 {count}
             </span>
-            <button className="minus text-text w-20"
+            <button className="minus cursor-pointer text-text w-20"
             onClick={onClickDecrement}>
                 -
             </button>

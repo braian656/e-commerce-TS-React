@@ -1,25 +1,33 @@
 // Hooks
-import { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { contextProducts } from "../context/context"
+import { Link } from 'react-router-dom';
 
 // Redux
-import { useAppDispatch, useAppSelector } from "../store/hook"
+import {  useAppSelector } from "../store/hook"
 
 // Components
-import ButtonPag from "../buttons-component/ButtonPag"
 import InputRegistro from "./InputRegistro"
+
+// firebase
+import { auth} from "../firebase/firebase";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useMyContext } from "../context/useMyContext";
+
 
 
 interface SliderProp{
     activeComponents: boolean;
     setActiveComponents: React.Dispatch<React.SetStateAction<boolean>>;
+    setUserLog: React.Dispatch<React.SetStateAction<boolean>>
 
 }
 
-const SignIn : React.FC<SliderProp> = ({activeComponents,setActiveComponents})=>{
+const SignIn : React.FC<SliderProp> = ({activeComponents,setActiveComponents, setUserLog})=>{
 
-    console.log('Por que mierda no funcionas hijo de puta')
+    console.log('COMPONENTE SIGNINT')
+    const {userFromDB} = useMyContext()
+    // se renderiza muchas veces
     const dataUsers = useAppSelector((state) => state.registerUser.users)
 
     const [verifyAccount,setVerifyAccount] = useState(
@@ -31,33 +39,31 @@ const SignIn : React.FC<SliderProp> = ({activeComponents,setActiveComponents})=>
     const navigate = useNavigate()
     
 
-    const submitForm = (e:  React.FormEvent<HTMLFormElement>)=>{
+    const submitForm = async (e:  React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-
     
-        for(const [key, value] of Object.entries(dataUsers)){
+       
 
-            if(value.email === verifyAccount.email && 
-                value.password === verifyAccount.password){
-                    
-                console.log('EL correo es correcto,La contraseña es Correcta')
+        try{
 
-            }else{
-                return
-            }
+            await signInWithEmailAndPassword(auth,verifyAccount.email, verifyAccount.password)
+            setUserLog(true)
+            navigate('/dashboard')
+            
+        }catch(err : unknown){
+            console.log('Error de login',err)
         }
 
-        console.log(verifyAccount)
+
+        
 
     }
 
-    const signUp = ()=>{
-        navigate('')
-    }
 
+
+  
     const changeForm = (e: React.ChangeEvent<HTMLInputElement>)=>{
         
-        console.log(e.target.name)
 
         const { target } = e;
         const { name, value } = target;
@@ -65,60 +71,53 @@ const SignIn : React.FC<SliderProp> = ({activeComponents,setActiveComponents})=>
             ...verifyAccount,
             [name]: value
         };
-
         setVerifyAccount(newValues)
     }
 
-
-    useEffect(()=>{
-
-        // if(sliderActive == true){
-        //     setSliderActive(false)
-        // }
-        
-        // setOpenPagProduct(false)
-        // setSliderActive(false)
-    }, [])
-
+    useEffect(()=>{ setActiveComponents(false)},[])
+    
     return(
-        <section className="sign-in flex justify-center items-center relative w-full h-[600px]">
-            <form onSubmit={submitForm} className="form-signIn shadow-lg">
-                    <h1 className="text-center font-bold text-3xl text-button">Ingresar</h1>
+        <section className="sign-in flex justify-center items-center relative w-full  h-[600px] bg-white">
+           <div className="content-form w-lg rounded-md border-1 border-solid border-gray-300">
+           <form onSubmit={submitForm} className="form-signIn shadow-lg">
+                    <h1 className="text-center font-bold text-3xl text-button2">Ingresar</h1>
+                    <p className="text-center text-gray-500 my-2">Ingresa tu correo para acceder</p>
                         <InputRegistro 
                         id="email" 
                         name="email" 
                         type="email"
                         text="Correo"
-                        onChange={changeForm}>          
+                        value={verifyAccount.email}
+                        onChange={changeForm}
+                        autocomplete="username"
+                        customWidth="w-full">          
                         </InputRegistro>
-
+                        {/* ponerlo dentro de un form */}
                         <InputRegistro 
                         id="password"
                         name="password"
                         type="password" 
                         text="Contraseña"
-                        onChange={changeForm}>           
+                        value={verifyAccount.password}
+                        onChange={changeForm}
+                        autocomplete="current-password"
+                        customWidth="w-full">           
                         </InputRegistro>
-                <div className="btns flex justify-center items-center flex-col">
 
-                    <span 
-                    className="text-signIn"
-                    onClick={signUp}>
-                        Aun no tienes una cuenta?
-                    </span>
 
-                    {/* Arreglar este boton algo hacia, no me acuerdo que */}
-                    {/* <ButtonPag 
-                        text="Ingresar" 
-                        type="submit"
-                        clr="bg-zinc-900"
-                        clrText="white"
-                        width="w-full"
-                        border="border border-solid border-white"
-                        hoverButton="hover:text-zinc-900 hover:bg-white border-zinc-900">         
-                    </ButtonPag> */}
-                </div>
-                </form>
+                        <div className="btns flex justify-center items-center flex-col">
+                            <button className="enviar bg-red-500 w-full py-2 my-3 font-medium rounded-sm cursor-pointer text-white hover:bg-red-400 transition-colors duration-300"  type="submit">Aceptar</button>       
+                            <div className="flex">
+
+                                <span className="text-signIn text-gray-500 my-2"> Aun no tienes una cuenta?</span>
+                                <button className="font-semibold cursor-pointer ml-1 hover:underline">
+                                    <Link to="/register">Registrarse</Link>
+                                </button>
+
+                            </div>
+                        </div>
+            </form>
+           </div>
         </section>
     )
 

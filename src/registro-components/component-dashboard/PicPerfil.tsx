@@ -1,4 +1,6 @@
-import ButtonPag from "../buttons-component/ButtonPag"
+
+
+
 interface PicPerfilType{
     picUser: string;
 }
@@ -12,7 +14,7 @@ function PicPerfil({picUser}: PicPerfilType){
                 <img src={picUser} alt="" />
             </div>
             <button className="profile-button">
-                CAMBIAR FOTO
+                cambiar foto
             </button>
         </div>
         </>

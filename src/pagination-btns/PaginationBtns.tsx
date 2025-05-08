@@ -1,5 +1,4 @@
 // Hooks
-import { useState } from "react"
 
 // Icons
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -11,17 +10,16 @@ import { useMyContext } from "../context/useMyContext";
 // type datos
 interface PaginationType{
   activeComponents : boolean;
-  setActiveComponents: React.Dispatch<React.SetStateAction<boolean>>
+  // setActiveComponents: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Pagination ({activeComponents, setActiveComponents}: PaginationType){
+function Pagination ({activeComponents}: PaginationType){
 
     const {
       totalProducts, 
       productsPerPage,
       currentPage,
       setCurrentPage, 
-      categories,
       userSelectedCategory
     }  = useMyContext()
 
@@ -67,21 +65,21 @@ function Pagination ({activeComponents, setActiveComponents}: PaginationType){
       <button 
       disabled={currentPage <= 1 ? true : false}
       onClick={previousPage} 
-      className={`mr-1 pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+      className={`mr-1 cursor-pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
         <ChevronLeft 
         size={48} 
         color="#ffff" 
         strokeWidth={1.5}/>
       </button>
 
-      <span>
+      <span className="mx-4 font-bold">
         {currentPage}
       </span>
 
       <button 
       disabled={currentPage >= pageNumber.length-1 ? true : false}
       onClick={nextPage} 
-      className={`ml-1 pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+      className={`ml-1 cursor-pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
 
         <ChevronRight 
         size={48} 

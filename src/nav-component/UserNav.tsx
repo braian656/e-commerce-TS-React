@@ -5,18 +5,20 @@ import { useMyContext } from "../context/useMyContext";
 
 
 // type
-import { ActualUser } from "../context/types/typesApi";
+import { UserFromFirebase } from "../context/types/typesApi";
 
 // interface TS
 interface UserNavProp{
 
-    actualUser : ActualUser | null;
+    userFromDB : UserFromFirebase | null;
     setUserLog : React.Dispatch<React.SetStateAction<boolean>>;
-    setActualUser : React.Dispatch<React.SetStateAction<ActualUser | null>>
+    setUserFromDB : React.Dispatch<React.SetStateAction<UserFromFirebase | null>>
     
 
 }
-function UserNav({actualUser, setUserLog,setActualUser}:UserNavProp){
+function UserNav({userFromDB, setUserLog,setUserFromDB}:UserNavProp){
+
+    console.log('NAV')
 
     const {picUser} = useMyContext()
    
@@ -25,7 +27,7 @@ function UserNav({actualUser, setUserLog,setActualUser}:UserNavProp){
         <div className="user py-1 px-2 mx-2 flex rounded-lg justify-center items-center z-90 transition ease-in-out">
             <h2 className="hidden sm:flex text-white text-center font-normal">
                 {/* ? verifica si hay un valor */}
-                {actualUser?.name + ' ' + actualUser?.surname}
+                {userFromDB?.name + ' ' + userFromDB?.surname}
             </h2>
             <div className="pic w-[40px] h-[40px] overflow-hidden rounded-full ml-2">
                 <img className="h-full w-full" src={picUser} alt="usuario-img"/>

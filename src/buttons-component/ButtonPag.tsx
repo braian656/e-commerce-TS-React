@@ -9,15 +9,16 @@ interface ButtonPagProp{
     clrText?: string;
     border?: string;
     hoverButton?: string;
+    cursorPointer?: string;
 
 }
-function ButtonPag({text, type,onClick, clr, width,clrText, border, hoverButton}: ButtonPagProp){
+function ButtonPag({text, type,onClick, clr, width,clrText, border, hoverButton,cursorPointer}: ButtonPagProp){
 
     return(
         <button 
         type={type}
         onClick={(e)=>onClick(e)} 
-        className={`add  mt-3 text-${clrText} font-bold rounded-md ${clr}  p-4 ${width} ${border} ease-out duration-300 ${hoverButton}`}>
+        className={`add ${cursorPointer}  mt-3 text-${clrText} font-bold rounded-md ${clr} p-4 ${width} ${border} ease-out duration-300 ${hoverButton}`}>
             {text}
         </button>
     )

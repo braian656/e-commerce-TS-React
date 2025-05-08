@@ -5,6 +5,7 @@ function SectionEmpty(){
 
             <h1 className="text-text font-bold text-black text-5xl subpixel-antialiased">
                 AUN NO HAY NADA...
+                
             </h1>
             
         </article>

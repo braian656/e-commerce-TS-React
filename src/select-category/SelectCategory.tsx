@@ -8,7 +8,7 @@ import { useMyContext } from "../context/useMyContext";
 function SelectCategory(){
 
     
-    const {productData, categories, setUserSelectedCategory} = useMyContext()
+    const {productData, setUserSelectedCategory} = useMyContext()
 
     const arrCategories: string[] = []
 
@@ -21,7 +21,6 @@ function SelectCategory(){
         // pujearla
         // luego retornar para que se pueda usar
         if(!categories.includes(category)){
-            console.log('Categoria en la que estoy', category)
             categories.push(category)
         }
 
@@ -40,16 +39,10 @@ function SelectCategory(){
         // setUserSelectedCategory(prevCategories => [...prevCategories, button.value]);
     }
 
-    // const button = e.target as HTMLElement;
-
-    // if (button.tagName === 'BUTTON' && button instanceof HTMLButtonElement) {
-    //     // Actualizar el estado con el valor del botón
-    //     setUserSelectedCategory(button.value);
-    // }
+ 
 
    }
 
-    //Problema, esta en categoria All y paso dde pag, al seleccionar una nueva categoria esta no se muestra
 
 
     return (
@@ -58,7 +51,6 @@ function SelectCategory(){
             
             <div className="inner-category">
                 <div className="category flex items-center justify-center"
-                //  name="Category" 
                  id="category" 
                  onClick={showCategory}>
                 {

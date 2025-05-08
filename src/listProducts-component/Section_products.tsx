@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import Products from '../card-product-component/Products'
 
 interface SectionProdProp{
@@ -7,27 +7,18 @@ interface SectionProdProp{
 }
 
 function sectionProducts({setActiveComponents}: SectionProdProp){
-    useEffect(()=>{
 
-        setActiveComponents(true)
 
-    }, [])
+    console.log('WRAPPER PRODUCTS')
+    useEffect(()=>{setActiveComponents(true)}, [])
 
   
 
-
+    
 
     return (
-        <section id="tech" 
-                className='
-                p-2 bg-body 
-                flex 
-                justify-center 
-                items-center 
-                flex-wrap'> 
-            
-            <Products>
-            </Products>
+        <section id="products" className='p-2 bg-body flex justify-center items-center flex-wrap'>       
+            <Products></Products>
         </section>
 
     )

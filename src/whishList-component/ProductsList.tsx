@@ -1,42 +1,41 @@
 // hooks
-import React, { useContext, useEffect, useRef ,useState} from 'react';
+import React, {useEffect,useState} from 'react';
 
 // Components
-import Cantidad from '../page-product/sub-component-pag/Cantidad'
 import ErrorComponent from '../errors-component/ErrorComponent';
 import ProductCard from '../card-product-component/Card';
-import ButtonPag from '../buttons-component/ButtonPag';
 import EmptyCart from '../errors-component/EmpyCart';
-
 
 // Provider
 import { useMyContext } from '../context/useMyContext';
-import { contextProducts } from "../context/context"
 
 
 // types
 
-import { ActualUser } from '../context/types/typesApi';
 import { ProductsWhishList } from '../context/types/typesApi'
 
 interface ProductListType{
-    actualUser : ActualUser | null;
     setActiveComponents: React.Dispatch<React.SetStateAction<boolean>>;
     items: ProductsWhishList[];
     setList: React.Dispatch<React.SetStateAction<ProductsWhishList[]>>;
 }
 
-function ProductsList({actualUser, setActiveComponents,items, setList}: ProductListType){
+function ProductsList({ setActiveComponents,items, setList}: ProductListType){
+    console.log('Lista Productos')
 
     const [ showModalError, setshowModalError] = useState(false)
 
 
 
-    const {
-        purchasedProducts,
-        setPurchasedProducts
-        } = useMyContext()
+    const { setPurchasedProducts ,actualUser } = useMyContext()
 
+    const removeFromList = (e:React.MouseEvent<HTMLButtonElement>)=>{
+        const target = e.currentTarget.parentElement?.parentElement as HTMLElement
+        const remove = items.filter(prod => prod.id !== Number(target.id))
+        setList(remove)
+    }
+
+    
     const mapWishList = items.map((item)=>(
         <ProductCard
             key={item.id}
@@ -45,16 +44,15 @@ function ProductsList({actualUser, setActiveComponents,items, setList}: ProductL
             product={item.product} 
             description={item.description}
             price={item.price}
+            onClick={removeFromList}
         ></ProductCard>
     ))
-// cuando se guarde aca , se debe mostrar siempre
+
+   
     const processPurchase = (e: React.MouseEvent<HTMLButtonElement>)=>{
         // 1) verificar que tenga cuenta
         // 2) si la tiene mostara un modal o algo asi
-        console.log('Comprar mierdas 2.0')  
-        console.log(items)
-
-        console.log(items.length, 'cantidad de producto a comprar')
+      
         if(actualUser !== null){
 
             items.forEach((product, i)=>{
@@ -97,66 +95,54 @@ function ProductsList({actualUser, setActiveComponents,items, setList}: ProductL
 
 
 
-    useEffect(()=>{
-        setActiveComponents(false)
-
-
-    }, [])
+    useEffect(()=>{setActiveComponents(false)}, [])
 
     return(
 
-        <section id="wishList" 
-        // className="p-2 flex justify-center items-center flex-col flex-wrap"
-        >
+        <section id="wishList">
 
-        <ErrorComponent
-        visible={showModalError} 
-        messageModal="Registrate para continuar"
-        txtButton='bg-blue-200'
-        actualUser={null}
-        colorBtn='bg-green-500'
-        title=''
-        image="/images/hearts.svg"
-        handleModal={handleModalWishList}>
-        </ErrorComponent>
+            <ErrorComponent
+            visible={showModalError} 
+            messageModal="Registrate para continuar"
+            txtButton='bg-blue-200'
+            userFromDB={null}
+            colorBtn='bg-green-500'
+            title=''
+            image="/images/hearts.svg"
+            handleModal={handleModalWishList}>
+            </ErrorComponent>
 
-            <div className="title-wishList">
-
-                <h1 className='h1-wishList'>
-                    Tu Lista de Deseos
-                </h1>
-
-                <div className="underline">
-
-                </div>
-            </div>
-
-            <div className="content-wishList min-h-screen flex justify-center items-center flex-wrap">
-             {
-                items.length !== 0 
-                ? 
-                mapWishList
-                :  
-                <EmptyCart 
-                text="Aun no hay nada por aqui..."
-                zIndex=''>
-                </EmptyCart> 
-            }
-            </div>
-            <div className='button-buy'>
+            <div className="title-wishList flex justify-between p-2">
+                <h1 className='txt-wishList'>
+                    Lista de deseos                    
+                </h1>                
                 {
-                    items.length !== 0
+
+                    items.length !== 0 
                     ? 
-                    <ButtonPag 
-                    text="REALIZAR COMPRA"
-                    clr="bg-button"
-                    clrText="white"
-                    width="w-auto"
-                    onClick={processPurchase}>
-                    </ButtonPag>
+                    <button className="cursor-pointer px-4 py-2 bg-[#232323] text-gray-200 rounded-md flex items-center"  
+                        onClick={processPurchase}>
+                        Realizar compra
+
+                        <div className='ml-2 current-count font-semibold w-[30px] h-[30px] bg-button text-white p-1 rounded-full flex justify-center items-center'>
+                            {items.length}
+                        </div>
+                    </button>  
                     :
                     null
                 }
+            </div>
+            <div className="min-h-screen flex justify-start items-start rounded-md flex-wrap">
+                    {
+                        items.length !== 0 
+                        ? 
+                        mapWishList
+                        :  
+                        <EmptyCart 
+                        text="Aun no hay nada por aqui..."
+                        zIndex=''>
+                        </EmptyCart> 
+                    }
             </div>
         </section>
 

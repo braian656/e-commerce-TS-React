@@ -10,17 +10,17 @@ import { RootState } from "../store"
 
 import { addProduct, resetMessage} from "../store/features/cart"
 
+// icon
+
+import { Star ,ShoppingCart} from "lucide-react"
 
 
 
-// type 
-import { InfoApi } from "../context/types/typesApi"
 
 // components
 import ServerError from '../errors-component/ServerError'
 import ErrorComponent from "../errors-component/ErrorComponent"
 
-import {ShoppingCart} from 'lucide-react'
 
 
 
@@ -35,14 +35,11 @@ function Products(){
     userSelectedCategory,
     activeItemId,
     setActiveItemId,
-    setTotalPrice,
     setSelectingPrice,
-    setProductData
     
   } = useMyContext()
 
 
-  // const cartState = useSelector((state:RootState)=> state.items)
   const message = useSelector((state : RootState) => state.handleCart.message)
   const dispatch = useDispatch()
 
@@ -137,14 +134,48 @@ function Products(){
 
                 <div className="flex items-center justify-between flex-col">
 
-                  <h2 
-                  className="py-2 h-[100px] font-semibold	text-lg text-center text-button tracking-widest w-full">
-                    {prod.productTitle}
-                  </h2>
+                  <div className="rating-product w-full flex justify-start px-2 py-1">
+                    {
+                      Array.from({length : Number(prod.productRatingRate)}, (_, i)=>(
+                        <span key={i} className="text-button m-0.5">
+                            <Star color="#f1ba2f" />
+                        </span>
+                      ))
+                    }
+                  </div>
 
-                  <span className="text-2xl py-2 font-bold text-[#736969] leading-5">
-                    {prod.productPrice}$
-                  </span>  
+                  <div className="box-info-product w-full flex flex-col justify-start align-start p-2">
+                    <h2 
+                    className="py-2 h-[80px] font-semibold	text-lg  text-button2">
+                      {prod.productTitle}
+                    </h2>
+
+                    <p className="descr text-gray-600">
+                        {prod.productDescription.slice(0,80)}...     
+                    </p>
+                  </div>
+
+                  <div className="box-info-cost p-2 flex w-full">
+                    <div className="cost flex justify-start align-center w-[70%]">
+
+                      <h1 className="text-lg py-1 font-bold text-[#000] leading-5">
+                        {prod.productPrice}$
+                      </h1> 
+
+                      <h3 className="py-1 ml-3 font-semibold text-gray-500 leading-5 line-through">
+                        98.0$
+                      </h3> 
+
+                    </div>
+                    <div className="descuento w-[30%]">
+                        <div className="box-desc bg-[#28a745] px-2 py-1 rounded-xl">
+                          <h2 className="desc font-semibold text-center text-body">
+                            20% OFF
+                          </h2>
+                        </div>
+                        
+                    </div>
+                  </div> 
 
                 </div>
 
@@ -162,12 +193,12 @@ function Products(){
                   ()=>
                     addToCart(prod.productId, prod.productImage, prod.productTitle, prod.productPrice)
                 } 
-                className="add_to_cart_btn w-full duration-200 text-sm bg-button2 text-white font-bold py-2 px-4 hover:bg-button z-50 hover:bg-text">
+                className="add_to_cart_btn w-full rounded-md duration-200 text-sm bg-button2 text-white font-bold py-2 px-4 hover:bg-button z-50 hover:bg-text">
                   <span className="icon-cart mr-2">
                       <ShoppingCart size={20} />
                   </span>
-                  <span className="text-btn-cart ml-2">
-                      ADD TO CART
+                  <span className="cursor-pointer text-btn-cart ml-2">
+                      Añadir al carrito
                   </span>
               </button>
             </article>
@@ -196,7 +227,7 @@ function Products(){
       colorBtn="bg-button2"
       title="UPSSS...!"
       image="./images/close.svg"
-      actualUser={null}>
+      userFromDB={null}>
       </ErrorComponent>
       :
       null

@@ -6,6 +6,3 @@ import {CurrentInfo} from "./types/typesApi";
 export const contextProducts = createContext<CurrentInfo | undefined>(undefined)
 
   
-// export const contextProducts = createContext<CurrentInfo>(
-//     {} as CurrentInfo // 👈 Evita `undefined`
-//   );

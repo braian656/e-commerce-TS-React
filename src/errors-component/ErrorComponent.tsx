@@ -7,17 +7,13 @@ import { useNavigate } from "react-router-dom"
 
 // type
 
-import { ActualUser } from '../context/types/typesApi';
-
-// component
-import ButtonPag from "../buttons-component/ButtonPag"
-
+import { UserFromFirebase } from '../context/types/typesApi';
 
 interface ErrorComponetProp{
     visible : boolean;
     messageModal : string;
     txtButton: string;
-    actualUser: ActualUser | null;
+    userFromDB: UserFromFirebase | null;
     colorBtn: string;
     title: string;
     image: string;
@@ -26,18 +22,18 @@ interface ErrorComponetProp{
     
 }
 
-function ErrorComponent ({visible, messageModal, txtButton,actualUser,colorBtn, image,title, handleModal}:ErrorComponetProp){
+function ErrorComponent ({visible, messageModal, txtButton,userFromDB,colorBtn, image,title, handleModal}:ErrorComponetProp){
     const navigate = useNavigate()
 
     const pageSignIn = ()=>{
         navigate("/SignIn")
     }
 
-    const visibility = visible ? 'flex' : 'hidden'
+    const visibility = visible ? 'flex justify-center items-center' : 'hidden'
 
 
     return (
-        <article className={`${visibility} modal-info`}>    
+        <article className={`modal-info ${visibility}`}>    
             <div className="content relative w-full">
                 <span 
                 onClick={handleModal} 
@@ -51,7 +47,7 @@ function ErrorComponent ({visible, messageModal, txtButton,actualUser,colorBtn, 
                     <h1 className="title text-4xl text-white mb-2">
                         {title}
                     </h1>
-                    <h2 className="text-extrabold text-text font-xlg">
+                    <h2 className="text-extrabold text-gray-500 font-xlg">
                         {messageModal}
                     </h2>
                     {/* <ButtonPag 

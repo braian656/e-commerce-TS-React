@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { ActualUser } from '../context/types/typesApi'
 
 // React Route
 import { Routes, Route} from "react-router-dom"
@@ -19,23 +18,27 @@ import Pagina from '../page-product/Pagina';
 import ContainerCardHome from './ContainerCardHome';
 import Pagination  from '../pagination-btns/PaginationBtns';
 
-
+// mi Context
 // CSS
+// import '../style.css'
+// import '../index.css'
 import '../global.css'
-import '../style.css'
-import '../index.css'
-
+// import '../output.css'
 // import '../output.css'
 
 //Provider
+
 import ProductsContext from '../context/ProductsContext';
 
 // TS Interfacr
 import { ProductsWhishList } from '../context/types/typesApi'
 
+
+
+// mover esta mierda, al type
 interface stateApp{
+  
   activeComponentes : boolean;
-  actualUser : string | null;
   userLog : boolean;
   
 }
@@ -43,13 +46,13 @@ interface stateApp{
 // useMemo , evita el renderizado 
 function App() {
 
+  console.log('Renderizando sitio')
   const [activeComponents, setActiveComponents] = useState<stateApp['activeComponentes']>(true)
 
 
-  const [actualUser , setActualUser] = useState<ActualUser | null>(null)
+  const [userLog, setUserLog] = useState<stateApp['userLog']>(false)
 
   // USUARIO LOGEADO
-  const [userLog, setUserLog] = useState<stateApp['userLog']>(false)
 
 
   const [list, setList] = useState<ProductsWhishList[]>([])
@@ -76,18 +79,15 @@ function App() {
 
 }
 
+// implementar lazy loading en los router
+
 
   return (
     <>
 
   <ProductsContext>
     
-      <Header 
-      actualUser={actualUser} 
-      setActualUser={setActualUser}
-      setUserLog={setUserLog}>
-      </Header>
-
+      <Header setUserLog={setUserLog}></Header>
       <main className='bg-body'>   
 
         {/* El estado es true los componentes se muestran */}
@@ -99,78 +99,55 @@ function App() {
 
           <Routes>
             <Route 
-            path='/' 
-            element={
-              <SectionProducts 
-              activeComponents={activeComponents}
-              setActiveComponents={setActiveComponents}>
-              </SectionProducts>
-              }>
-                
+              path='/' 
+              element={<SectionProducts activeComponents={activeComponents} setActiveComponents={setActiveComponents}></SectionProducts>}>    
             </Route>
 
-            {/* En pagina activeComponents es false, se ocultan */}
-            {/* doble renderizacion */}
+           
             <Route
               path='/products/:productId'
               element={
-              <Pagina 
-              actualUser={actualUser}
-              onClick={wishItems} 
-              setActiveComponents={setActiveComponents}>
-              </Pagina>}>
+              <Pagina  onClick={wishItems} setActiveComponents={setActiveComponents}></Pagina>}>
             </Route>
 
 
             <Route path='/micuenta' 
-            element={
-            userLog 
-              ?
-            // en vez de volver a la seccion de producto, crear un componente que muestre datos, y registros de las compras
-            <DashboardUser 
-            // setSliderActive={setSliderActive} 
-            setUserLog={setUserLog} 
-            actualUser={actualUser} 
-            setActualUser={setActualUser}
-            ></DashboardUser>
+                  element={
+                    userLog 
 
-            :        
+                      ?
+                    <DashboardUser activeComponents={activeComponents} setActiveComponents={setActiveComponents} setUserLog={setUserLog}></DashboardUser>
 
-            <Registro  
-            activeComponents={activeComponents} 
-            setActiveComponents={setActiveComponents}
-            setUserLog={setUserLog} 
-            setActualUser={setActualUser}>
-            </Registro>
-          }>
+                    :  
+                    <SignIn  activeComponents={activeComponents} setActiveComponents={setActiveComponents} setUserLog={setUserLog}></SignIn> 
 
+                  }>
 
             </Route>
 
 
             <Route path='/wishlist' 
-              element={
-            // whislIst COmponente
-
-              <ProductsList 
-              actualUser = {actualUser}
-              setActiveComponents={setActiveComponents} 
-              items={list}
-              setList={setList}/>
-              }>
+              element={<ProductsList setActiveComponents={setActiveComponents} items={list} setList={setList}/>}>
             </Route> 
 
-
-           {/* componente registrarse */}
+    
+            <Route path="/register" element={<Registro activeComponents={activeComponents} setActiveComponents={setActiveComponents} setUserLog={setUserLog}></Registro>}></Route>
 
             <Route 
               path="/signin"
-              element={activeComponents && <SignIn activeComponents={activeComponents} setActiveComponents={setActiveComponents}></SignIn>}>
+              element={<SignIn activeComponents={activeComponents} setActiveComponents={setActiveComponents} setUserLog={setUserLog}></SignIn>}>
             </Route>
+
+            <Route path='/dashboard' 
+              element={<DashboardUser activeComponents={activeComponents} setActiveComponents={setActiveComponents} setUserLog={setUserLog}></DashboardUser>}>
+            </Route> 
+
+
+
           </Routes>
 
         {/* COmponente pagination */}
-        {activeComponents && <Pagination activeComponents={activeComponents} setActiveComponents={setActiveComponents}></Pagination>}
+        {activeComponents && <Pagination activeComponents={activeComponents}></Pagination>}
               
       </main>
 

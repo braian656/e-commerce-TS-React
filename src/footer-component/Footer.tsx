@@ -1,5 +1,5 @@
 function Footer (){
-
+    console.log('FOOTER')
 
     return (
 
