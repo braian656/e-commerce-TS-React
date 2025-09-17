@@ -65,7 +65,7 @@ function Pagination ({activeComponents}: PaginationType){
       <button 
       disabled={currentPage <= 1 ? true : false}
       onClick={previousPage} 
-      className={`mr-1 cursor-pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+      className={`mr-1 cursor-pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-indigo-800'}`}>
         <ChevronLeft 
         size={48} 
         color="#ffff" 
@@ -79,7 +79,7 @@ function Pagination ({activeComponents}: PaginationType){
       <button 
       disabled={currentPage >= pageNumber.length-1 ? true : false}
       onClick={nextPage} 
-      className={`ml-1 cursor-pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+      className={`ml-1 cursor-pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-indigo-600'}`}>
 
         <ChevronRight 
         size={48} 

@@ -2,43 +2,13 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion,  AnimatePresence , useInView} from "framer-motion";
+import ButtonPag from "../buttons-component/ButtonPag";
+import HeroPopularProducts from "./CardHero";
 
 interface SliderType{
   activeComponents : boolean;
 }
 
-// const slides = [
-//   {
-//     id: 1,
-//     image: "./images/image_slider/nike-logo.png",
-//     title: "IMAGEN 1",
-//     text: "Realme T300 Cancelación Ruido 30db Audio Espacial 360° Orange",
-   
-
-//   },
-//   {
-//     id: 2,
-//     image: "./images/image_slider/tiffany_logo.png",
-//     title: "IMAGEN 2",
-//     text: "Realme T300 Cancelación Ruido 30db Audio Espacial 360° Orange",
-    
-//   },
-//   {
-//     id: 3,
-//     image: "./images/image_slider/ryzen_logo.png",
-//     title: "IMAGEN 3",
-//     text: "Realme T300 Cancelación Ruido 30db Audio Espacial 360° Orange",
-    
-
-//   },
-//   {
-//     id: 4,
-//     image: "./images/image_slider/calvin_klein_logo.png",
-//     title: "IMAGEN 4",
-//     text: "Realme T300 Cancelación Ruido 30db Audio Espacial 360° Orange",
-    
-//   },
-// ];
 
 export default function Slider({activeComponents}: SliderType) {
   
@@ -48,83 +18,57 @@ export default function Slider({activeComponents}: SliderType) {
   const myRef = useRef(null);
   const isInView = useInView(myRef);
 
+  const buy = ()=>{
 
-  
-
-  // useEffect(() => {
-
-  //   if(!isInView)return
-
-  //   const interval = setInterval(() => {
-
-  //     setCurrent((prev) => (prev + 1) % Math.ceil(slides.length / 2)); 
-
-  //   }, 10000); // Cada 3s cambia
-
-
-  //   return () => clearInterval(interval);
-
-
-  // }, [slides.length,isInView]);
-
-  // // Agrupar de a 2 slides
-  // const groupedSlides = [];
-  // for (let i = 0; i < slides.length; i += 2) {
-
-  //   groupedSlides.push(slides.slice(i, i + 2));
-
-  // }
-
-// arreglar el hero
+  }
   return (
-
-    // <div ref={myRef} className="overflow-hidden w-full h-auto sm:h-[420px] flex items-center justify-center bg-butto2">
-    //   <AnimatePresence mode="wait">
-    //     <motion.div
-    //       key={current}
-    //       className="flex w-full h-full"
-    //       initial={{ x: "100%", opacity: 0 }}
-    //       animate={{ x: 0, opacity: 1 }}
-    //       exit={{ x: "-100%", opacity: 0 }}
-    //       transition={{ duration: 0.8 }}
-    //       viewport={{ once: true }}
-
-    //     >
-    //       {groupedSlides[current].map((slide) => (
-    //         <div key={slide.id} className="flex items-center justify-center w-[50%] bg-[#232323] sm:w-1/2 p-4">
-
-    //           <div className="card-slider bg-white-400 rounded-lg overflow-hidden shadow-lg flex justify-center items-center">
-      
-    //             <div className="content-image w-[220px] h-[220px] sm:w-[90%] sm:h-[90%] flex justify-center items-center">
-
-    //               <img
-    //                 src={slide.image}
-    //                 // src='../images/pngwing.com.png'
-    //                 alt={slide.title}
-    //                 className="object-contain w-full h-full"
-    //               />
-
-    //             </div>
-    //           </div>
+    <section className="bg-white py-16 px-6 md:px-20 text-center">
 
 
-    //         </div>
-    //       ))}
-    //     </motion.div>
-    //   </AnimatePresence>
-    // </div>
-    <section className="bg-gray-100 py-16 px-6 md:px-20 text-center">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-          Encuentra lo que amas, cómpralo al instante
-        </h1>
-        <p className="text-lg md:text-xl text-gray-600 mb-8">
-          Las mejores ofertas en tecnología, moda, hogar y más. Envíos rápidos y atención personalizada.
-        </p>
-        <a href="#productos" className="bg-red-400 text-white px-6 py-3 rounded-xl text-lg hover:bg-blue-500 transition">
-          Explorar productos
-        </a>
+
+      <div className="sm:flex">
+        <div className="sm:w-lg text-start">
+              <div className="bg-[#2b2c30] ml-2 px-2 py-1  w-[130px] rounded-md">
+                  <h2 className="text-white font-normal">Pure Shopping</h2>
+              </div>
+
+
+              <h1 className="font-bold text-4xl p-2">Discover Premium Products for Your <span className="text-red-400">Lifestyle</span></h1>
+
+              <p className="text-xl px-2 py-6">
+                Shop our curated collection of high-quality products designed to enhance your daily life. From tech to wellness, we've got you covered.
+              </p>
+
+               <div className="flex sm:mt-[100px]">
+                    <ButtonPag 
+                      text='Comprar Ahora' 
+                      onClick={buy}
+                      clr='bg-button mr-2'
+                      clrText='white'
+                      border='border-1 border-solid border-gray-400'
+                      width='w-[200px]'
+                      hoverButton='hover:bg-indigo-800 hover:border-indigo-200 '
+                      cursorPointer='cursor-pointer'>
+                    </ButtonPag>
+
+                    <ButtonPag 
+                      text='Ver Productos' 
+                      onClick={buy}
+                      clr='bg-white ml-2'
+                      clrText='#2b2c30 font-normal'
+                      border='border-1 border-solid border-gray-400 '
+                      width='w-[100px]sm:w-2xs'
+                      hoverButton='hover:bg-white hover:border-indigo-800 hover:text-indigo-800'
+                      cursorPointer='cursor-pointer'>
+                    </ButtonPag>
+                </div>
+          </div>
+          
+          <HeroPopularProducts></HeroPopularProducts>
       </div>
+
+      
+     
     </section>
 
     

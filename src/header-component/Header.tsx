@@ -15,14 +15,11 @@ import { RootState } from '../store';
 
 // type
 // icons
-import { AlignJustify } from 'lucide-react'
+import { motion, AnimatePresence } from "framer-motion";
 
 
 // components
 import ModalProductsUser from '../nav-component/ModalProductsUser';
-import UserNav from '../nav-component/UserNav';
-import EmptyCart from '../errors-component/EmpyCart'
-
 // css
 import '../index.css'
 
@@ -37,6 +34,7 @@ interface HeaderProps{
 function Header({setUserLog}: HeaderProps){
 
     console.log('HEADER')
+    const [isOpen, setIsOpen] = useState(false); /*DE practica*/
 
     const {totalPrice, setTotalPrice,renderTotalPrice,userFromDB,setUserFromDB} = useMyContext()
     
@@ -152,143 +150,50 @@ function Header({setUserLog}: HeaderProps){
     }
    
     return(
-      <header className='bg-button p-2 sticky z-50 top-0 overflow-hidden'>
+ 
 
-        <nav className='flex justify-between items-center'>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      {/* Botón para abrir */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700"
+      >
+        Abrir Modal
+      </button>
 
-          <div className="logo w-10 h-10 z-50">
-          <Link to="/">
-            <img 
-            className='w-full h-full' 
-            data-type="img" 
-            src="./images/ecommerce.svg" 
-            alt="e-commerce" />
-          </Link>   
-          </div>
-
-
-          {/* miniComponente menu */}
-          <ul 
-          onClick={closeMenu}
-          className={`fixed top-[60px] left-0 h-[500px] w-full flex justify-center items-center flex-col transition-transform duration-500 ease-out sm:relative sm:top-0 sm:translate-y-0 sm:w-auto sm:h-auto sm:flex sm:flex-row sm:items-center sm:justify-center z-40 bg-button ${handleClassMenu}`}>
-            
-            <li className=' sm:mb-0  mb-5' >
-              <Link 
-              to="/" 
-              data-type="link"
-              className='text-anchor font-bold py-2 px-4'>
-                INICIO
-              </Link>
-            </li>
-
-            <li className=' sm:mb-0 mb-5' >
-              <Link 
-              data-type="link"
-              to="/wishlist" 
-              className='text-anchor font-bold py-2 px-4'>
-                MI LISTA
-              </Link>        
-            </li>
-
-            <li className=' sm:mb-0 bg-body px-1 py-2 mb-5 text-text rounded-lg'>
-              <Link 
-              data-type="link"
-              to="/micuenta" 
-              className='text-button font-bold py-2 px-4'>
-                MI CUENTA
-              </Link>    
-            </li>
-            
-          </ul>  
-
-
-        
-
-
-          <div className="btns-cart flex z-50">
-
-
-            {
-
-            userFromDB !== null 
-            
-            ? 
-
-            <UserNav 
-            setUserLog={setUserLog} 
-            userFromDB={userFromDB} 
-            setUserFromDB={setUserFromDB}
-            ></UserNav>
-
-            : 
-            null
-            
-            }
-            <button 
-            ref={buttonSeeModal}
-            className='btn-cart z-50 bg-body rounded-lg px-1 py-2 ease-out duration-700 border-2
-            border-transparent hover:border-button2 
-            hover:bg-button hover:scale-105 hover:text-button2'
-            onClick={seeModalProduct}>
-
-              <span className='text-red-500 px-1 font-semibold rounded-md -z-10'>
-                {myCart.length}
-              </span>
-              
-              <i className="fa-solid fa-cart-shopping -z-10"></i>
-
-            </button>
-            
-            <button 
-            className='btn-menu z-50 sm:hidden'
-            onClick={openMenu}>   
-            
-            
-            <AlignJustify 
-             size={32} 
-             color="#2b2c30"/>
-
-            </button>
-          </div>
-        </nav>
-
-        <div 
-        className={`${modalShow}`}>
-          
-          <ul 
-          className='ul-list-product'
-          ref={boxUserProduct}>
-            {
-              Object.values(myCart).length == 0
-
-              ? 
-
-              <EmptyCart 
-                zIndex="z-50"
-                text="Looks like you haven't added anything to your cart yet.">
-              </EmptyCart> 
-
-              : 
-
-              ''
-            }
-
-
-            {cartProducts}      
-
-          </ul>
-          
-          <div className={`${hanndleClassTotal} text-white bg-button2 p-2 rounded-lg total_price justify-around items-center`}>
-  
-              <span className="total_title">Total</span>
-              <span className="total font-normal text-xl">
-                ${totalPrice.length === 0 ? null : renderTotalPrice}
-              </span>
-  
-          </div>
-        </div>
-    
-      </header>
+      {/* Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-2xl shadow-xl p-6 w-96"
+              initial={{ y: -100, opacity: 0, scale: 0.9 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 100, opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <h2 className="text-xl font-semibold mb-4">🚀 Modal animado</h2>
+              <p className="text-gray-600 mb-6">
+                Este modal se abre y se cierra con animación.
+              </p>
+              <div className="flex justify-end">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      </div>
     )
 }
 

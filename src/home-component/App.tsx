@@ -6,25 +6,18 @@ import { Routes, Route} from "react-router-dom"
 
 // Components
 import SignIn from '../registro-components/SignIn';
-import Header from '../header-component/Header';
 import SectionProducts from '../listProducts-component/Section_products';
-// import Slider from '../slider-component/Slider';
 import Slider from '../slider-component/SliderVersion2';
 import Footer from '../footer-component/Footer'
 import ProductsList from '../whishList-component/ProductsList'
 import Registro from '../registro-components/Registro';
 import DashboardUser from '../registro-components/DashboardUser';
 import Pagina from '../page-product/Pagina';
-import ContainerCardHome from './ContainerCardHome';
 import Pagination  from '../pagination-btns/PaginationBtns';
+import Navigation from '../header-component/Navigation';
+import Features from './NewCardHome';
 
-// mi Context
-// CSS
-// import '../style.css'
-// import '../index.css'
 import '../global.css'
-// import '../output.css'
-// import '../output.css'
 
 //Provider
 
@@ -86,14 +79,18 @@ function App() {
     <>
 
   <ProductsContext>
+        <Navigation setUserLog={setUserLog} activeComponents={activeComponents}></Navigation>
+
     
-      <Header setUserLog={setUserLog}></Header>
+      {/* <Header setUserLog={setUserLog}></Header> */}
       <main className='bg-body'>   
 
         {/* El estado es true los componentes se muestran */}
         {/* verifican que sea true para mostrar */}
         {activeComponents && <Slider activeComponents={activeComponents}></Slider>}
-        {activeComponents && <ContainerCardHome activeComponents={activeComponents}></ContainerCardHome>}
+        {/* {activeComponents && <ContainerCardHome activeComponents={activeComponents}></ContainerCardHome>} */}
+        
+                {activeComponents && <Features></Features> }
 
         {/* En SectionProcuts se usa el estado activeComponents, para cambiarlo a true */}
 
@@ -102,15 +99,11 @@ function App() {
               path='/' 
               element={<SectionProducts activeComponents={activeComponents} setActiveComponents={setActiveComponents}></SectionProducts>}>    
             </Route>
-
-           
             <Route
               path='/products/:productId'
               element={
-              <Pagina  onClick={wishItems} setActiveComponents={setActiveComponents}></Pagina>}>
+              <Pagina onClick={wishItems} setActiveComponents={setActiveComponents}></Pagina>}>
             </Route>
-
-
             <Route path='/micuenta' 
                   element={
                     userLog 

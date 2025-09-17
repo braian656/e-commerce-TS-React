@@ -3,7 +3,6 @@ import { CreditCard ,ShoppingCart, Laptop} from 'lucide-react'
 
 // Components
 import CardHome from './CardHome'
-import SelectCategory from '../select-category/SelectCategory'
 
 interface ContainerCardHomeProp {
   activeComponents : boolean;
@@ -38,14 +37,7 @@ function ContainerCardHome({activeComponents}: ContainerCardHomeProp){
 
           </div>
 
-          <div>
-            <SelectCategory></SelectCategory>
-          </div>
-
-            
-
         </section>
     )
 }
 
-export default ContainerCardHome

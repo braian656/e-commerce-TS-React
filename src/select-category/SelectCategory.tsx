@@ -4,8 +4,12 @@ import { useContext, useEffect, useState } from "react"
 // Provider
 import { useMyContext } from "../context/useMyContext";
 
+interface propSelectCategory{
 
-function SelectCategory(){
+    onclick : ()=> void
+
+}
+function SelectCategory({onclick}: propSelectCategory){
 
     
     const {productData, setUserSelectedCategory} = useMyContext()
@@ -43,24 +47,24 @@ function SelectCategory(){
 
    }
 
-
-
     return (
 
-        <div className="container-category bg-button p-2 roudend-md">
+        <div className="container-category p-2 roudend-md">
             
             <div className="inner-category">
                 <div className="category flex items-center justify-center"
                  id="category" 
                  onClick={showCategory}>
                 {
-                filtrarCategories.map((category)=>(
-                    <button
-                    value={category}
-                    key={category}>
-                    {category}
-                    </button>
-                    ))
+                    filtrarCategories.map((category)=>(
+                        <button
+                        onClick={onclick}
+                        className="inline-flex w-auto mx-2 justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 cursor-pointer hover:text-indigo-800"
+                        value={category}
+                        key={category}>
+                        {category}
+                        </button>
+                        ))
                 }
                 </div>
             </div>

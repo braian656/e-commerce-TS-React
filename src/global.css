@@ -5,7 +5,8 @@
   --font-family: "Roboto", "sans-serif";
   --color-body: #f2f2f2;
   --color-modal: #31363d;
-  --color-button: #c8222f;
+  /* --color-button: #c8222f; */
+  --color-button: oklch(45.7% 0.24 277.023);
     --color-title: #17281b;
     --color-anchor:#e0e1e5;
     --color-button2: #232323;
