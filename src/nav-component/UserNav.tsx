@@ -26,7 +26,6 @@ function UserNav({userFromDB, setUserLog,setUserFromDB}:UserNavProp){
 
         <div className="user py-1 px-2 mx-2 flex rounded-lg justify-center items-center z-90 transition ease-in-out">
             <h2 className="hidden sm:flex text-white text-center font-normal">
-                {/* ? verifica si hay un valor */}
                 {userFromDB?.name + ' ' + userFromDB?.surname}
             </h2>
             <div className="pic w-[40px] h-[40px] overflow-hidden rounded-full ml-2">

@@ -157,7 +157,7 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                 
                 
 
-               <div className="flex">
+               <div className="flex items-center">
                 <Link data-type="link" to="/micuenta">
                     <button className="text-white m-3 sm:m-0 sm:p-2 flex items-center justify-center pointer hover:text-indigo-200">
                         <span  className="m-1">
@@ -189,7 +189,7 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                         <span className="m-1">
                             <Heart/>
                         </span>
-                        <span className="absolute right-[-5px] top-[0px] w-[20px] h-[20px] bg-red-400 flex justify-center items-center rounded-full text-white">0</span>
+                        <span className="absolute right-[-10px] top-[-10px] sm:right-[-5px] sm:top-[0px] w-[20px] h-[20px] bg-red-400 flex justify-center items-center rounded-full text-white">0</span>
                         Whishlist
                     </button>
                 </Link>
@@ -201,7 +201,7 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                      <span  className="m-1">
                         <ShoppingCart/>
                     </span>
-                    <span className="absolute right-[-5px] top-[0px] w-[20px] h-[20px] bg-red-400 flex justify-center items-center rounded-full text-white">{myCart.length}</span>
+                    <span className="absolute right-[-10px] top-[-10px] sm:right-[-5px] sm:top-[0px] w-[20px] h-[20px] bg-red-400 flex justify-center items-center rounded-full text-white">{myCart.length}</span>
 
                     Cart
                 </button>

@@ -28,13 +28,13 @@ function Dropdown({arrCategories, onclick}: DropdownProp){
 
     return (
         <div className="dropdown inline-flex w-auto mx-2 justify-center gap-x-1.5  text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 cursor-pointer hover:text-indigo-800">
-            <button className="dropbtn px-3 py-2"> Categorias <ChevronDown /></button>
+            <button className="dropbtn px-1 sm:px-3 py-2"> Categorias <ChevronDown /></button>
             <div className="dropdown-content">        
                 {
                    filtrarCategories.map((category)=>(
                         <button
                         onClick={onclick}
-                        className="text-black p-2 hover:text-indigo-800"
+                        className="text-black block p-2 hover:text-indigo-800"
                         value={category}
                         key={category}>
                         {category}
