@@ -16,10 +16,10 @@ import { Star ,ShoppingCart} from "lucide-react"
 
 
 
-
 // components
 import ServerError from '../errors-component/ServerError'
 import ErrorComponent from "../errors-component/ErrorComponent"
+import CustomButton from "../buttons-component/CustomButton"
 
 
 
@@ -65,12 +65,6 @@ function Products(){
         return product
 
       }
-
-    
-      // if(product.productCategory === userSelectedCategory){
-      //   return product
-      // }
-
 
   })
 
@@ -188,7 +182,21 @@ function Products(){
                 <p className="active_animation">PRODUCTOR AÑADIDO</p>
 
               )}
-              <button 
+
+
+              <CustomButton
+              onClick={ ()=>addToCart(prod.productId, prod.productImage, prod.productTitle, prod.productPrice)}
+              customClass="add_to_cart_btn w-full rounded-md duration-200 text-sm bg-button2 text-white font-bold py-2 px-4 hover:bg-button z-50 hover:bg-text"
+              >
+                   <span className="icon-cart mr-2">
+                      <ShoppingCart size={20} />
+                  </span>
+                  <span className="cursor-pointer text-btn-cart ml-2">
+                      Añadir al carrito
+                  </span>
+              </CustomButton>
+
+              {/* <button 
                 onClick={
                   ()=>
                     addToCart(prod.productId, prod.productImage, prod.productTitle, prod.productPrice)
@@ -200,7 +208,7 @@ function Products(){
                   <span className="cursor-pointer text-btn-cart ml-2">
                       Añadir al carrito
                   </span>
-              </button>
+              </button> */}
             </article>
 
 

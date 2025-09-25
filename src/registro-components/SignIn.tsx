@@ -106,7 +106,7 @@ const SignIn : React.FC<SliderProp> = ({activeComponents,setActiveComponents, se
 
 
                         <div className="btns flex justify-center items-center flex-col">
-                            <button className="enviar bg-red-500 w-full py-2 my-3 font-medium rounded-sm cursor-pointer text-white hover:bg-red-400 transition-colors duration-300"  type="submit">Aceptar</button>       
+                            <button className="enviar bg-indigo-800 w-full py-2 my-3 font-medium rounded-sm cursor-pointer text-white hover:bg-indigo-400 transition-colors duration-300"  type="submit">Aceptar</button>       
                             <div className="flex">
 
                                 <span className="text-signIn text-gray-500 my-2"> Aun no tienes una cuenta?</span>

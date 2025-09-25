@@ -4,8 +4,7 @@ function SectionEmpty(){
         <article className="p-2 w-4/5 h-96 flex justify-center items-center">
 
             <h1 className="text-text font-bold text-black text-5xl subpixel-antialiased">
-                AUN NO HAY NADA...
-                
+                AUN NO HAY NADA...       
             </h1>
             
         </article>

@@ -1,6 +1,7 @@
 import {Heart} from 'lucide-react'
 
 import ButtonPag from '../buttons-component/ButtonPag';
+import CustomButton from '../buttons-component/CustomButton'
 
 interface ProductCardType{
   id: string;
@@ -40,6 +41,17 @@ function ProductCard({id,image,product, description,price, onClick}: ProductCard
                
             </div>
 
+              {/* <CustomButton 
+              text='Remover' 
+              onClick={onClick}
+              type='button'
+              clr='bg-white'
+              clrText='red-500'
+              border='border-1 border-solid border-gray-400'
+              width='w-full'
+              hoverButton='hover:bg-red-100 hover:border-red-200'
+              cursorPointer='cursor-pointer'>
+              </CustomButton> */}
 
               <ButtonPag 
               text='Remover' 

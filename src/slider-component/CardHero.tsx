@@ -21,7 +21,7 @@ export default function HeroPopularProducts() {
                 <span className="text-lg font-bold text-[#2b2c30]">
                   $59.99
                 </span>
-                <button className="bg-[#2b2c30] text-white px-4 py-2 rounded-xl hover:bg-indigo-700 transition">
+                <button className="bg-[#2b2c30] text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
                   Comprar
                 </button>
               </div>
@@ -46,7 +46,7 @@ export default function HeroPopularProducts() {
                 <span className="text-lg font-bold text-[#2b2c30]">
                   $89.99
                 </span>
-                <button className="bg-[#2b2c30] text-white px-4 py-2 rounded-xl hover:bg-indigo-700 transition">
+                <button className="bg-[#2b2c30] text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
                   Comprar
                 </button>
               </div>

@@ -24,13 +24,13 @@ function UserNav({userFromDB, setUserLog,setUserFromDB}:UserNavProp){
    
     return(
 
-        <div className="user py-1 px-2 mx-2 flex rounded-lg justify-center items-center z-90 transition ease-in-out">
-            <h2 className="hidden sm:flex text-white text-center font-normal">
+        <div className="text-white  sm:m-0 sm:p-2 flex items-center justify-center w-[100px] pointer hover:text-indigo-200">
+            <h2 className="hidden sm:flex text-white text-center">
                 {userFromDB?.name + ' ' + userFromDB?.surname}
             </h2>
-            <div className="pic w-[40px] h-[40px] overflow-hidden rounded-full ml-2">
+            {/* <div className="pic w-[40px] h-[40px] overflow-hidden rounded-full ml-2">
                 <img className="h-full w-full" src={picUser} alt="usuario-img"/>
-            </div>
+            </div> */}
 
         </div>
 

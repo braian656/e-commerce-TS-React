@@ -8,6 +8,7 @@ import {
 
 
 // components
+import ModalComponent from "../errors-component/ModalComponent"
 import ErrorComponent from "../errors-component/ErrorComponent"
 import SubComponentPag from './sub-component-pag/SubComponentPag'
 import ButtonPag from "../buttons-component/ButtonPag"
@@ -179,6 +180,18 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
     
             setWishListModal(true)
         }
+
+        // optimizar esto
+        if (userFromDB === null) {
+            setNoUser(false);
+            setMessage('Inicia sesion para realizar la compra.');
+            setTxtButton('IR A MI CUENTA');
+            setShowMessageErr(true);
+            setImgError('/images/sad-circle.svg') /*No estoy usando esta img*/
+            setTitleModal('Accede para Continuar')
+
+            return;
+        }
     
         
     }
@@ -201,8 +214,7 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
             showMesaggeErr
 
             &&
-            
-            <ErrorComponent 
+            <ModalComponent
             visible={showMesaggeErr} 
             handleModal={handleModal}
             messageModal={message}
@@ -210,9 +222,9 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
             userFromDB = {userFromDB}
             colorBtn='bg-green-500'
             image={imgError}
-            title={titleModal}
-            >
-            </ErrorComponent>
+            title={titleModal}>
+                
+            </ModalComponent>
         }
     
 
@@ -323,7 +335,7 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
                         clr="bg-zinc-900"
                         clrText="white"
                         width="w-full"
-                        border="border border-solid border-white"
+                        border="border border-solid border-white cursor-pointer"
                         hoverButton="hover:text-zinc-900 hover:bg-gray-500">
                         
                     </ButtonPag>
@@ -334,7 +346,7 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
                         clrText="white"
                         width="w-full"
                         border="none"
-                        hoverButton="hover:border-button2 hover:bg-red-600">                  
+                        hoverButton="hover:border-button2 cursor-pointer hover:bg-red-600">                  
                     </ButtonPag>
                 </div>
             </div>

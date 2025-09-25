@@ -3,6 +3,7 @@ import UserNav from "../nav-component/UserNav";
 import ModalProductsUser from "../nav-component/ModalProductsUser";
 import EmptyCart from "../errors-component/EmpyCart";
 import SelectCategory from "../select-category/SelectCategory";
+import CustomButton from "../buttons-component/CustomButton"
 import { Link } from 'react-router-dom';
 import { useSelector , useDispatch} from "react-redux";
 import { useMyContext } from '../context/useMyContext';
@@ -16,6 +17,7 @@ import { RootState } from '../store';
 import { motion, AnimatePresence } from "framer-motion";
 
 import {User, ShoppingCart,Heart, Search} from 'lucide-react'
+import { ProductsWhishList } from '../context/types/typesApi'
 
 // css
 import '../index.css'
@@ -23,10 +25,12 @@ interface NavigationProps{
 
     activeComponents : boolean;
     setUserLog : React.Dispatch<React.SetStateAction<boolean>>;
+    items: ProductsWhishList[];
   
 }
 
-function Navigation({setUserLog, activeComponents}:NavigationProps){
+function Navigation({setUserLog, activeComponents, items}:NavigationProps){
+    // utilizar al arr de whislist para mostrar los archivos
 
     const {totalPrice, setTotalPrice,renderTotalPrice,userFromDB,setUserFromDB} = useMyContext()
     
@@ -120,14 +124,16 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
         const handleClick = (e: MouseEvent)=>{    
             if(!boxUserProduct.current?.contains(e.target as  HTMLUListElement)
               && !buttonSeeModal.current?.contains(e.target as HTMLButtonElement)){
-              setModalProduct(false)
+            //   setModalProduct(false)
+              setMenuOpen(false)
+              console.log('algo malo pasa')
             }
         }
     
-        document.addEventListener('click', handleClick)
+        window.addEventListener('click', handleClick)
     
         return () => {
-            document.removeEventListener('click', handleClick);
+            window.removeEventListener('click', handleClick);
         };
 
     },[])
@@ -160,11 +166,11 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                <div className="flex items-center">
                 <Link data-type="link" to="/micuenta">
                     <button className="text-white m-3 sm:m-0 sm:p-2 flex items-center justify-center pointer hover:text-indigo-200">
+                       
                         <span  className="m-1">
                             <User />
                         </span>
-
-                         {
+                        {
                         
                             userFromDB !== null 
                                     
@@ -178,18 +184,20 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                         
                             : 
 
-                            null
+                            <h2>Cuenta</h2>
                                     
                         }
-                        Cuenta
                     </button>
                 </Link>
                 <Link data-type="link" to="/wishlist">
+                  
                     <button className="relative text-white m-3 sm:m-0 sm:p-2 flex items-center justify-center pointer hover:text-indigo-200">
                         <span className="m-1">
                             <Heart/>
                         </span>
-                        <span className="absolute right-[-10px] top-[-10px] sm:right-[-5px] sm:top-[0px] w-[20px] h-[20px] bg-red-400 flex justify-center items-center rounded-full text-white">0</span>
+                        <span className="absolute right-[-10px] top-[-10px] sm:right-[-5px] sm:top-[0px] w-[20px] h-[20px] bg-red-400 flex justify-center items-center rounded-full text-white">
+                            {items.length}
+                        </span>
                         Whishlist
                     </button>
                 </Link>
@@ -206,11 +214,11 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                     Cart
                 </button>
 
-                <button className="sm:hidden ml-3">
+                <div className="sm:hidden ml-3">
 
                     <Dropdown onclick={selectedCategory} arrCategories={arrCategories}></Dropdown>
 
-                </button>
+                </div>
                </div>
 
             </nav>
@@ -219,48 +227,23 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
             <div className="categories hidden  sm:flex sm:justify-between sm:items-center sm:p-1">
                 <div className="flex">
 
-                    {activeComponents && <SelectCategory onclick={selectedCategory}></SelectCategory> }
+                    {
+                        activeComponents 
+                        && 
+                        <SelectCategory onclick={selectedCategory}/>
+                    }
                     
                 </div>
 
 
-                <button className="shop-now cursor-pointer font-semibold p-1 bg-white w-56 mx-2">Comprar ahora</button>
+                <button className="shop-now cursor-pointer rounded-md font-semibold p-1 bg-white w-56 mx-2">
+                    Comprar ahora
+                </button>
+            </div> 
 
-                <div 
-                        className={`${modalShow}`}>
-                          
-                          <ul className='ul-list-product' ref={boxUserProduct}>
-                            {
-                              Object.values(myCart).length == 0
-                
-                              ? 
-                
-                              <EmptyCart 
-                                zIndex="z-50"
-                                text="Looks like you haven't added anything to your cart yet.">
-                              </EmptyCart> 
-                
-                              : 
-                
-                              ''
-                            }
-                
-                
-                            {cartProducts}      
-                
-                          </ul>
-                          
-                          <div className={`${hanndleClassTotal} text-white bg-button2 p-2 rounded-lg total_price justify-around items-center`}>
-                  
-                              <span className="total_title">Total</span>
-                              <span className="total font-normal text-xl">
-                                ${totalPrice.length === 0 ? null : renderTotalPrice}
-                              </span>
-                  
-                          </div>
-                </div>
 
-                <AnimatePresence>
+
+                        <AnimatePresence>
                     {
                      menuOpen && (
                         
@@ -276,7 +259,7 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                                 exit={{ y: 100, opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
-                            <ul className="ul-list-product">
+                            <ul className="ul-list-product" ref={boxUserProduct}>
                                     {
                                     Object.values(myCart).length == 0
                         
@@ -313,7 +296,6 @@ function Navigation({setUserLog, activeComponents}:NavigationProps){
                     }
                 </AnimatePresence>
 
-            </div> 
         </div>
     )
 

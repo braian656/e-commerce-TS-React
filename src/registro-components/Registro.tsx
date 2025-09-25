@@ -348,7 +348,7 @@ const Registro : React.FC<SliderProp> = ({activeComponents,setActiveComponents,s
                          </button>
                         <button 
                             type="submit"
-                            className="mt-3 rounded-lg text-[#f2f2f2] font-semibold  bg-button py-2 px-3 w-1/2 ease-out duration-700 hover:bg-button2  shadow-md hover:shadow-lg transition-shadow ...">
+                            className="mt-3 rounded-lg text-[#f2f2f2] font-semibold bg-indigo-800 py-2 px-3 w-1/2 ease-out duration-700 hover:bg-indigo-400  shadow-md hover:shadow-lg transition-shadow ...">
                                 Registrarse
                         </button>
                     </div>

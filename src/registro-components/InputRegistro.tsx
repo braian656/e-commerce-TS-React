@@ -68,7 +68,7 @@ function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, 
     return(
         <div className="input-form flex items-center flex-col pt-2 relative">
             <div className={`${customWidth} justify-start items-center`}>
-                <label htmlFor={name} className="font-semibold text-button">
+                <label htmlFor={name} className="font-semibold text-gray-800">
                     {text}
                 </label> 
             </div>

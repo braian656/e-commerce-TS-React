@@ -79,7 +79,7 @@ function App() {
     <>
 
   <ProductsContext>
-        <Navigation setUserLog={setUserLog} activeComponents={activeComponents}></Navigation>
+        <Navigation setUserLog={setUserLog} activeComponents={activeComponents}items={list}></Navigation>
 
     
       {/* <Header setUserLog={setUserLog}></Header> */}
@@ -90,7 +90,7 @@ function App() {
         {activeComponents && <Slider activeComponents={activeComponents}></Slider>}
         {/* {activeComponents && <ContainerCardHome activeComponents={activeComponents}></ContainerCardHome>} */}
         
-                {activeComponents && <Features></Features> }
+        {activeComponents && <Features></Features> }
 
         {/* En SectionProcuts se usa el estado activeComponents, para cambiarlo a true */}
 
