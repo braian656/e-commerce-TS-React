@@ -144,17 +144,17 @@ function Navigation({setUserLog, activeComponents, items}:NavigationProps){
 
             <nav className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:mx-2">
 
-                <div className="flex w-full">
+                <div className="flex items-center w-full sm:w-[60%]">
                     <div className="logo p-1">
                         <Link  to="/" data-type="link">
 
-                                  <h2 className="text-2xl font-bold text-white mb-4">ShopX</h2>
+                            <h2 className="text-2xl font-bold text-white">ShopX</h2>
 
                         </Link>
                     </div>
 
                     <div className="input-search w-[60%] sm:w-sm relative m-auto">
-                        <input type="search" className="py-1  px-2 bg-white rounded-full border-none outline-none w-full" placeholder="Buscar Producto..." />
+                        <input type="search" className="py-1 px-2 bg-white rounded-full border-none outline-none w-full" placeholder="Buscar Producto..." />
                         <span className="icon absolute right-[5px] top-[4px]">
                             <Search color="#2d2a2a" />
                         </span>

@@ -53,9 +53,11 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
     const [imgError, setImgError] = useState('') /*titulo del boton en el modal*/
     const [titleModal, setTitleModal] = useState('')
     const [wishListModal, setWishListModal] = useState(false)
-
+    const [clrModal , setClrModal] = useState('')
     const [quantity, setQuantity] = useState(1) /*Cantidad de producto a ordenar, por defecto siempre 1*/
     const [color,setColor] = useState('')
+
+    const [icon, setIcon] = useState(false)
 
 
     const handleData = useCallback(()=>{
@@ -65,8 +67,10 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
             setMessage('Inicia sesion para realizar la compra.');
             setTxtButton('IR A MI CUENTA');
             setShowMessageErr(true);
-            setImgError('/images/sad-circle.svg')
+            // setImgError('AlertCircle')
+            setIcon(false)
             setTitleModal('Accede para Continuar')
+            setClrModal('bg-red-500 hover:bg-red-600')
 
             return;
         }
@@ -91,8 +95,10 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
                 setMessage(actualProduct.product);
                 setTxtButton('Aceptar');
                 setShowMessageErr(true);
-                setImgError('/images/check.svg')
+                // setImgError('SquareCheckBig')
+                setIcon(true)
                 setTitleModal('¡Compra realizada con éxito!')
+                setClrModal('bg-green-500 hover:bg-green-700')
     
                 return
             } else {
@@ -220,8 +226,8 @@ function Pagina({onClick,setActiveComponents} : SliderProp){
             messageModal={message}
             txtButton={txtButton}
             userFromDB = {userFromDB}
-            colorBtn='bg-green-500'
-            image={imgError}
+            clrModal ={clrModal}
+            addIcon={icon}
             title={titleModal}>
                 
             </ModalComponent>
